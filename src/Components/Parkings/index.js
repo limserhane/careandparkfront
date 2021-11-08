@@ -9,7 +9,7 @@ import {NavLink} from "react-router-dom";
 function Parkings(props) {
     
     const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
 
     const [parkings, setParkings] = useState([])
 
