@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import "./style.css";
 
@@ -6,55 +6,48 @@ import * as api from "../../Utils/api"
 
 import {NavLink} from "react-router-dom";
 
-function Parkings(props) {
-    
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(false)
+class Parkings extends React.Component {
+	constructor(props) {
+		super(props)
 
-    const [parkings, setParkings] = useState([])
+		this.state = {
+			parkings: []
+		}
 
-    useEffect(() => {
+		this.chargerParkings = this.chargerParkings.bind(this)
+	}
 
-        setLoading(true);
-    
-        fetch(api.url+"/parkings")
-        .then( (response) => {
-            if(response.ok) { response.json().then( (data) => {
-                    setParkings(data)
-                    setLoading(false);
-            })}
-            else {
-                // reponse not ok
-            }
-        })
-        .catch( (error) => {
-            setError(error);
-            setLoading(false);
-        })
-    }, [])
+	chargerParkings() {
+		
+		fetch(api.url+"/parkings")
+		.then( (response) => {
+			if(response.ok) { response.json().then( (data) => {
+					this.setState({parkings: data})
+			})}
+			else {
+				console.log(response)
+			}
+		})
+		.catch( (error) => {
+			console.log(error)
+		})
+	}
+	
+	componentDidMount() {
+		this.chargerParkings()
+	}
 
-    if(loading) {
-        return <span>Chargement des parkings ...</span>
-    }
-
-    if(error) {
-        return (
-            <div>
-                <h2>Erreur lors du chargement des parkings</h2>
-                <p>{JSON.stringify(error)}</p>
-            </div>
-        );
-    }
-
-	return (
-		<ul className="parkings-container">
-			{parkings.map(parking => 
-                <li key={parking.id} className="parking">
-                    <NavLink to={parking.id.toString()} className="link">{parking.nom}, {parking.adresse}</NavLink>
-                </li>
-            )}
-		</ul>
-	);
+	render() {
+		return (
+			<ul className="parkings-container">
+				{this.state.parkings.map(parking => 
+					<li key={parking.id} className="parking">
+						<NavLink to={parking.id.toString()} className="link">{parking.nom}, {parking.adresse}</NavLink>
+					</li>
+				)}
+			</ul>
+		);
+	}
 }
 
 export default Parkings;

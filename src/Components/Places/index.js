@@ -2,6 +2,8 @@ import React from "react";
 
 import "./style.css";
 
+import * as api from "../../Utils/api"
+
 import Place from "../Place";
 
 class Places  extends React.Component {
@@ -19,23 +21,29 @@ class Places  extends React.Component {
     }
 
     chargerPlaces() {
+		
+		fetch(api.url+"/parkings/"+this.id+"/places")
+		.then( (response) => {
+			if(response.ok) { response.json().then( (data) => {
+					this.setState({places: data})
+			})}
+			else {
+				console.log(response)
+			}
+		})
+		.catch( (error) => {
+			console.log(error)
+		})
+    }
 
+    componentDidMount() {
+        this.chargerPlaces()
     }
 
     render() {
         return (
             <div className="places-container">
-                <Place id={this.id}/>
-                <Place id={this.id}/>
-                <Place id={this.id}/>
-                <Place id={this.id}/>
-                <Place id={this.id}/>
-                <Place id={this.id}/>
-                <Place id={this.id}/>
-                <Place id={this.id}/>
-                <Place id={this.id}/>
-                <Place id={this.id}/>
-                <Place id={this.id}/>
+                {(this.state.places.map((place) => <Place key={this.id.toString()+place.numero.toString()} id={this.id} numero={place.numero} />))}
             </div>
         );
     }

@@ -11,7 +11,6 @@ class Compteur extends React.Component {
 
         this.state = {
             compteur: 0,
-            error: null
         }
 
         this.id = this.props.id
@@ -23,32 +22,22 @@ class Compteur extends React.Component {
 
     chargerCompteur() {
 
-        this.setState({loading: true})
-
         fetch(api.url+"/parkings/"+this.id+"/compteur")
         .then( (response) => {
             if(response.ok) { response.json().then( (data) => {
-                this.setState({
-                    compteur: data,
-                    error: null
-                })
+                this.setState({compteur: data})
             })}
             else {
-                // reponse not ok
+                console.log(response)
             }
         })
         .catch( (error) => {
-            this.setState({
-                error: error
-            })
+            console.log(error)
         })
     }
 
 
     modifierCompteur(modification) {
-
-        this.setState({loading: true})
-    
         const request = new Request(api.url+"/parkings/"+this.id+"/compteur/"+modification, {
             method: "POST"
         })
@@ -56,24 +45,20 @@ class Compteur extends React.Component {
         fetch(request)
         .then( (response) => {
             if(response.ok) { response.json().then( (data) => {
-                this.setState({
-                    compteur: data,
-                    error: null
-                })
+                this.setState({compteur: data})
             })}
             else {
                 if(response.status === 409) {
                     alert("Impossible d'enregistrer une sortie")
-                    this.setState({
-                        compteur: 0,
-                    })
+                    this.setState({compteur: 0})
+                }
+                else {
+                    console.log(response)
                 }
             }
         })
         .catch( (error) => {
-            this.setState({
-                error: error
-            })
+            console.log(error)
         })
 
     }
@@ -83,14 +68,6 @@ class Compteur extends React.Component {
     }
 
     render() {
-        if(this.state.error) {
-            return (
-                <div>
-                    <p>Erreur lors du chargement du compteur {this.id}</p>
-                    <p>{JSON.stringify(this.state.error)}</p>
-                </div>
-            );
-        }
 
         return (
             <div className="compteur-container">
