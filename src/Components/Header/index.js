@@ -11,7 +11,7 @@ function Header(props) {
 		<div className="header-container">
 			<NavLink to="/" className="link"><h1 className="title">Care And Park</h1></NavLink>
 			<NavLink to="/parkings" className="sublink link">Parkings</NavLink>
-			<a href={api.url} target="_blank" className="sublink link">API</a>
+			<a href={api.url} target="_blank" rel="noreferrer" className="sublink link">API</a>
 		</div>
 	);
 }
