@@ -2,10 +2,15 @@ import React from "react";
 
 import "./style.css";
 
+import Header from "../Header"
+
+import { Outlet } from "react-router-dom";
+
 function App() {
   return (
     <div className="App">
-      <h1>Care And Park</h1>    
+      <Header />
+      <Outlet />
     </div>
   );
 }
