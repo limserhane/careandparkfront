@@ -4,6 +4,7 @@ import "./style.css";
 
 import Compteur from "../Compteur";
 import ParkingInformations from "../ParkingInformations";
+import Places from "../Places";
 
 import { useParams } from "react-router-dom";
 
@@ -14,6 +15,7 @@ function Parking(props) {
         <div className="parking-container">
             <ParkingInformations id={id}/>
             <Compteur id={id}/>
+            <Places id={id}/>
         </div>
 	);
 }

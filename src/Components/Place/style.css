@@ -1,0 +1,44 @@
+.place-container {
+    position: relative;
+
+    width: 96px;
+    height: 128px;
+    margin: 10px;
+
+    border: solid 1px black;
+    border-radius: 16px;
+
+    background-color: darkblue;
+
+}
+
+.place-numero {
+    color: white;
+    text-align: center;
+
+    margin: 10px auto;
+}
+
+.place-type {
+    color: white;
+    text-align: center;
+    
+    margin: 10px auto;
+}
+
+.place-container .pastille {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+}
+
+.libre {
+    background-color: green;
+}
+
+.occupee {
+    background-color: rgb(155, 0, 0);
+}

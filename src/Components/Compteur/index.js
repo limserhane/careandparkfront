@@ -58,7 +58,7 @@ function Compteur(props) {
 
     useEffect( () => {
         chargerCompteur(id, setLoading, setCompteur, setError)
-    }, [])
+    }, [id])
 
 
     if(loading) {
