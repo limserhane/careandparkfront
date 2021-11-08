@@ -1,57 +1,64 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import "./style.css";
 
 import * as api from "../../Utils/api"
 
-import {useParams} from "react-router-dom"
 
-function ParkingInformations(props) {
+class ParkingInformations extends React.Component {
 
-    const {id} = useParams();
+    constructor(props){
+        super(props)
 
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(false)
+        this.state = {
+            error: null
+        }
 
-    const [parking, setParking] = useState({})
+        this.id = this.props.id
 
-    useEffect( () => {
-    
-        fetch(api.url+"/parkings/"+id)
+        this.parking = {};
+
+        this.chargerInformations = this.chargerInformations.bind(this)
+    }
+
+    chargerInformations() {
+
+        fetch(api.url+"/parkings/"+this.id)
         .then( (response) => {
             if(response.ok) { response.json().then( (data) => {
-                    setParking(data)
-                    setLoading(false);
+                    this.parking = data
+                    this.setState({error: null})
             })}
             else {
                 // reponse not ok
             }
         })
         .catch( (error) => {
-            setError(error);
-            setLoading(false);
+            this.setState({error: error})
         })
-    }, [id])
-
-    if(loading) {
-        return <span>Chargement des informations... {id} </span>
     }
 
-    if(error) {
+    componentDidMount() {
+        this.chargerInformations()
+    }
+    
+    render() {
+        if(this.state.error) {
+            return (
+                <div>
+                    <p>Erreur lors du chargement des informations</p>
+                    <p>{JSON.stringify(this.state.error)}</p>
+                </div>
+            );
+        }
+
         return (
-            <div>
-                <p>Erreur lors du chargement des informations {id}</p>
-                <p>{JSON.stringify(error)}</p>
+            <div className="informations-container">
+                <h2 className="nom">{this.parking.nom || "?"}</h2>
+                <p className="adresse">{this.parking.adresse || "?"}</p>
             </div>
         );
     }
-
-	return (
-        <div className="informations-container">
-            <h2 className="nom">{parking.nom}</h2>
-            <p className="adresse">{parking.adresse}</p>
-        </div>
-	);
 }
 
 export default ParkingInformations;
