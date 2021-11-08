@@ -2,6 +2,8 @@ import React from "react";
 
 import "./style.css";
 
+import {NavLink} from "react-router-dom";
+
 function obtenirParkings() {
     return [
         {
@@ -25,7 +27,11 @@ function obtenirParkings() {
 function Parkings(props) {
 	return (
 		<ul className="parkings-container">
-			{obtenirParkings().map(parking => <li>{parking.nom}, {parking.adresse}</li>)}
+			{obtenirParkings().map(parking => 
+                <li className="parking">
+                    <NavLink to={parking.id} className="link">{parking.nom}, {parking.adresse}</NavLink>
+                </li>
+            )}
 		</ul>
 	);
 }
