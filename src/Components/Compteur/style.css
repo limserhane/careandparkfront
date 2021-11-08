@@ -1,0 +1,33 @@
+.compteur-container {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
+	gap: 0px 0px;
+	grid-template-areas:
+		"compteur compteur"
+		"recharger recharger"
+		"sortie entree";
+	justify-items: center;
+	align-items: center;
+
+    gap: 10px 0px; 
+
+	margin: 10px;
+}
+
+.bouton {
+    
+}
+
+.compteur {
+	grid-area: compteur;
+}
+.recharger {
+	grid-area: recharger;
+}
+.sortie {
+	grid-area: sortie;
+}
+.entree {
+	grid-area: entree;
+}
