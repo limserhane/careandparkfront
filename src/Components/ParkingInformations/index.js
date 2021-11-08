@@ -31,7 +31,7 @@ function ParkingInformations(props) {
             setError(error);
             setLoading(false);
         })
-    })
+    }, [id])
 
     if(loading) {
         return <span>Chargement des informations... {id} </span>
