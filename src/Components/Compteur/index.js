@@ -5,23 +5,22 @@ import "./style.css";
 import * as api from "../../Utils/api"
 
 import {useParams} from "react-router-dom"
-import Compteur from "../Compteur";
 
-function Parking(props) {
+function Compteur(props) {
 
     const {id} = useParams();
 
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
 
-    const [parking, setParking] = useState({})
+    const [compteur, setCompteur] = useState(0)
 
     useEffect( () => {
     
-        fetch(api.url+"/parkings/"+id)
+        fetch(api.url+"/parkings/"+id+"/compteur")
         .then( (response) => {
             if(response.ok) { response.json().then( (data) => {
-                    setParking(data)
+                setCompteur(data)
                     setLoading(false);
             })}
             else {
@@ -35,25 +34,25 @@ function Parking(props) {
     })
 
     if(loading) {
-        return <span>Chargement du parking {id} ...</span>
+        return <span>Chargement du compteur... {id} ...</span>
     }
 
     if(error) {
         return (
             <div>
-                <h2>Erreur lors du chargement du parking {id}</h2>
+                <p>Erreur lors du chargement du compteur {id}</p>
                 <p>{JSON.stringify(error)}</p>
             </div>
         );
     }
 
 	return (
-        <div className="parking-container">
-            <h2 className="nom">{parking.nom}</h2>
-            <p className="adresse">{parking.adresse}</p>
-            <Compteur />
+        <div className="compteur-container">
+            <p className="nom">Nombre de véhicules : {compteur}</p>
+            <button>Sortie</button>
+            <button>Entrée</button>
         </div>
 	);
 }
 
-export default Parking;
+export default Compteur;
