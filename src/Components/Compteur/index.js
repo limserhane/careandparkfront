@@ -1,87 +1,106 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import "./style.css";
 
 import * as api from "../../Utils/api"
 
 
-function changementCompteur(parkingId, value, set) {
-    
-    const request = new Request(api.url+"/parkings/"+parkingId+"/compteur/"+value, {
-        method: "POST"
-    })
+class Compteur extends React.Component {
+    constructor(props) {
+        super(props)
 
-    fetch(request)
-    .then( (response) => {
-        if(response.ok) { response.json().then( (data) => {
-            set(data)
-        })}
-        else {
-            if(response.status === 409) {
-                alert("Impossible d'enregistrer une sortie")
-            }
+        this.state = {
+            compteur: 0,
+            error: null
         }
-    })
-    .catch( (error) => {
-        console.log(error)
-    })
 
-}
+        this.id = this.props.id
 
-function chargerCompteur(parkingId, setLoading, setCompteur, setError) {
-    
-    fetch(api.url+"/parkings/"+parkingId+"/compteur")
-    .then( (response) => {
-        if(response.ok) { response.json().then( (data) => {
-            setCompteur(data)
-            setLoading(false);
-        })}
-        else {
-            // reponse not ok
-        }
-    })
-    .catch( (error) => {
-        setError(error);
-        setLoading(false);
-    })
-}
-
-function Compteur(props) {
-
-    const id = props.id
-
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(false)
-
-    const [compteur, setCompteur] = useState(0)
-
-
-    useEffect( () => {
-        chargerCompteur(id, setLoading, setCompteur, setError)
-    }, [id])
-
-
-    if(loading) {
-        return <span>Chargement du compteur... {id} ...</span>
+        this.chargerCompteur = this.chargerCompteur.bind(this)
+        this.modifierCompteur = this.modifierCompteur.bind(this)
     }
 
-    if(error) {
+
+    chargerCompteur() {
+
+        this.setState({loading: true})
+
+        fetch(api.url+"/parkings/"+this.id+"/compteur")
+        .then( (response) => {
+            if(response.ok) { response.json().then( (data) => {
+                this.setState({
+                    compteur: data,
+                    error: null
+                })
+            })}
+            else {
+                // reponse not ok
+            }
+        })
+        .catch( (error) => {
+            this.setState({
+                error: error
+            })
+        })
+    }
+
+
+    modifierCompteur(modification) {
+
+        this.setState({loading: true})
+    
+        const request = new Request(api.url+"/parkings/"+this.id+"/compteur/"+modification, {
+            method: "POST"
+        })
+
+        fetch(request)
+        .then( (response) => {
+            if(response.ok) { response.json().then( (data) => {
+                this.setState({
+                    compteur: data,
+                    error: null
+                })
+            })}
+            else {
+                if(response.status === 409) {
+                    alert("Impossible d'enregistrer une sortie")
+                    this.setState({
+                        compteur: 0,
+                    })
+                }
+            }
+        })
+        .catch( (error) => {
+            this.setState({
+                error: error
+            })
+        })
+
+    }
+
+    componentDidMount() {
+        this.chargerCompteur()
+    }
+
+    render() {
+        if(this.state.error) {
+            return (
+                <div>
+                    <p>Erreur lors du chargement du compteur {this.id}</p>
+                    <p>{JSON.stringify(this.state.error)}</p>
+                </div>
+            );
+        }
+
         return (
-            <div>
-                <p>Erreur lors du chargement du compteur {id}</p>
-                <p>{JSON.stringify(error)}</p>
+            <div className="compteur-container">
+                <p className="compteur">Nombre de véhicules : {this.state.compteur}</p>
+                <button className="bouton recharger" onClick={() => this.chargerCompteur()}>Recharger</button>
+                <button className="bouton sortie" onClick={() => this.modifierCompteur("sortie")}>Sortie</button>
+                <button className="bouton entree" onClick={() => this.modifierCompteur("entree")}>Entrée</button>
             </div>
         );
     }
-
-	return (
-        <div className="compteur-container">
-            <p className="compteur">Nombre de véhicules : {compteur}</p>
-            <button className="bouton recharger" onClick={() => chargerCompteur(id, setLoading, setCompteur, setError)}>Recharger</button>
-            <button className="bouton sortie" onClick={() => changementCompteur(id, "sortie", setCompteur)}>Sortie</button>
-            <button className="bouton entree" onClick={() => changementCompteur(id, "entree", setCompteur)}>Entrée</button>
-        </div>
-	);
 }
 
 export default Compteur;
