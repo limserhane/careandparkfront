@@ -28,6 +28,24 @@ function changementCompteur(parkingId, value, set) {
 
 }
 
+function chargerCompteur(parkingId, setLoading, setCompteur, setError) {
+    
+    fetch(api.url+"/parkings/"+parkingId+"/compteur")
+    .then( (response) => {
+        if(response.ok) { response.json().then( (data) => {
+            setCompteur(data)
+            setLoading(false);
+        })}
+        else {
+            // reponse not ok
+        }
+    })
+    .catch( (error) => {
+        setError(error);
+        setLoading(false);
+    })
+}
+
 function Compteur(props) {
 
     const id = props.id
@@ -37,26 +55,9 @@ function Compteur(props) {
 
     const [compteur, setCompteur] = useState(0)
 
-    function chargerCompteur() {
-    
-        fetch(api.url+"/parkings/"+id+"/compteur")
-        .then( (response) => {
-            if(response.ok) { response.json().then( (data) => {
-                setCompteur(data)
-                setLoading(false);
-            })}
-            else {
-                // reponse not ok
-            }
-        })
-        .catch( (error) => {
-            setError(error);
-            setLoading(false);
-        })
-    }
 
     useEffect( () => {
-        chargerCompteur()
+        chargerCompteur(id, setLoading, setCompteur, setError)
     }, [])
 
 
@@ -76,7 +77,7 @@ function Compteur(props) {
 	return (
         <div className="compteur-container">
             <p className="compteur">Nombre de véhicules : {compteur}</p>
-            <button className="bouton recharger" onClick={() => chargerCompteur()}>Recharger</button>
+            <button className="bouton recharger" onClick={() => chargerCompteur(id, setLoading, setCompteur, setError)}>Recharger</button>
             <button className="bouton sortie" onClick={() => changementCompteur(id, "sortie", setCompteur)}>Sortie</button>
             <button className="bouton entree" onClick={() => changementCompteur(id, "entree", setCompteur)}>Entrée</button>
         </div>
