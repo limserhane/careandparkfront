@@ -4,10 +4,14 @@ import "./style.css";
 
 import * as api from "../../Utils/api"
 
+import {useNavigate} from "react-router-dom"
+
 function NouveauParking (props) {
 
     const [nom, setNom] = useState("");
     const [adresse, setAdresse] = useState("");
+
+    let navigate = useNavigate();
 
     function envoyer(event) {
         event.preventDefault();
@@ -26,14 +30,11 @@ function NouveauParking (props) {
         fetch(request)
         .then( (response) => {
             if(response.ok) { response.json().then( (data) => {
-                setNom("")
-                setAdresse("")
-                alert("Parking "+data.id+" créé")
+                navigate("/parkings/"+data.id)
             })}
             else {
                 if(response.status === 400) {
                     alert("Le nom et l'adresse doivent être renseignées")
-                    this.setState({libre: false})
                 }
                 else {
                     console.log(response)
