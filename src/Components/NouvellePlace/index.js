@@ -4,7 +4,7 @@ import "./style.css";
 
 import * as api from "../../Utils/api"
 
-import { useParams, useNavigate} from "react-router-dom";
+import { useParams} from "react-router-dom";
 
 function NouvellePlace (props) {
 
@@ -12,8 +12,6 @@ function NouvellePlace (props) {
 
     const [numero, setNumero] = useState(0);
     const [type, setType] = useState("");
-
-    let navigate = useNavigate();
 
     function envoyer(event) {
         if(event) event.preventDefault();
