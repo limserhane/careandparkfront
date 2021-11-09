@@ -23,8 +23,6 @@ class Place extends React.Component {
 
     chargerPlace() {
 
-        this.setState({loading: true})
-
         fetch(api.url+"/parkings/"+this.id+"/places/"+this.numero)
         .then( (response) => {
             if(response.ok) { response.json().then( (data) => {
@@ -41,8 +39,6 @@ class Place extends React.Component {
     }
 
     modifierDisponibilite(modification) {
-        
-        this.setState({loading: true})
     
         const request = new Request(api.url+"/parkings/"+this.id+"/places/"+this.numero, {
             method: "PUT",
