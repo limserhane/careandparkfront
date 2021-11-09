@@ -4,7 +4,7 @@ import "./style.css";
 
 import * as api from "../../Utils/api"
 
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate} from "react-router-dom";
 
 function NouvellePlace (props) {
 
@@ -13,7 +13,7 @@ function NouvellePlace (props) {
     const [numero, setNumero] = useState(0);
     const [type, setType] = useState("");
 
-    // const [fichier, setFichier] = useState("");
+    let navigate = useNavigate();
 
     function envoyer(event) {
         if(event) event.preventDefault();
@@ -93,6 +93,8 @@ function NouvellePlace (props) {
             })
 
         });
+
+        // navigate("/parkings/"+id, {replace:true})
     }
 
     return (
@@ -118,7 +120,6 @@ function NouvellePlace (props) {
                 <label>Fichier JSON à charger
                     <input type="file" onChange={(event)=>{chargerFichier(event)}}/>
                 </label>
-                {/* <input type="submit" value="Créer les places" /> */}
             </form>
 
         </div>
