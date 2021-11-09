@@ -6,6 +6,7 @@ import './style.css';
 import App from './Components/App';
 import Parkings from "./Components/Parkings"
 import Parking from "./Components/Parking"
+import NouveauParking from "./Components/NouveauParking"
 
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
@@ -17,6 +18,7 @@ ReactDOM.render(
 				{/* NO INDEX = blank home */}
 				<Route path="parkings" element={<Parkings/>} />
 				<Route path="parkings/:id" element={<Parking />} />
+				<Route path="parkings/new" element={<NouveauParking />} />
 			</Route>
 		</Routes>
 	</BrowserRouter>
