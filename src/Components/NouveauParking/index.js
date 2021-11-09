@@ -11,11 +11,6 @@ function NouveauParking (props) {
 
     function envoyer(event) {
         event.preventDefault();
-
-        if(nom === "" || adresse === "") {
-            alert("Le nom et l'adresse doivent être renseignées")
-            return
-        }
     
         const request = new Request(api.url+"/parkings/", {
             method: "POST",
@@ -55,10 +50,10 @@ function NouveauParking (props) {
             <h2 className="title">Nouveau parking</h2>
             <form onSubmit={envoyer} className="formulaire">
                 <label>Nom du parking
-                    <input type="text" value={nom} onChange={(event => {setNom(event.target.value)})}/>
+                    <input type="text" required value={nom} onChange={(event => {setNom(event.target.value)})}/>
                 </label>
                 <label>Adresse du parking
-                    <input type="text" value={adresse} onChange={(event => {setAdresse(event.target.value)})}/>
+                    <input type="text" required value={adresse} onChange={(event => {setAdresse(event.target.value)})}/>
                 </label>
                 <input type="submit" value="Créer" />
             </form>

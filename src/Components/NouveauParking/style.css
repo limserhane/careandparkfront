@@ -7,8 +7,9 @@
 
 }
 
-input[type="text"],
-select {
+.nouveauparking-container input[type="text"], 
+.nouveauparking-container input[type="number"],
+.nouveauparking-container select {
 	width: 100%;
 	height: 50px;
 
@@ -22,7 +23,7 @@ select {
 	box-sizing: border-box;
 }
 
-input[type="submit"] {
+.nouveauparking-container input[type="submit"] {
 	width: 200px;
 	height: 50px;
 
@@ -40,17 +41,11 @@ input[type="submit"] {
 
 }
 
-input[type="submit"]:hover {
+.nouveauparking-container input[type="submit"]:hover {
     background-color: #45a049;
 }
 
-label {
+.nouveauparking-container label {
 	margin: 20px 20px;
 	display: block;
-
-	
-
-	/* border: 1px solid black;
-	border-radius: 4px;
-	box-sizing: border-box; */
 }
