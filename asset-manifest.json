@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/careandparkfront/static/css/main.5f265ec1.chunk.css",
+    "main.js": "/careandparkfront/static/js/main.45280137.chunk.js",
+    "main.js.map": "/careandparkfront/static/js/main.45280137.chunk.js.map",
+    "runtime-main.js": "/careandparkfront/static/js/runtime-main.bf0c81d9.js",
+    "runtime-main.js.map": "/careandparkfront/static/js/runtime-main.bf0c81d9.js.map",
+    "static/js/2.b651d21c.chunk.js": "/careandparkfront/static/js/2.b651d21c.chunk.js",
+    "static/js/2.b651d21c.chunk.js.map": "/careandparkfront/static/js/2.b651d21c.chunk.js.map",
+    "index.html": "/careandparkfront/index.html",
+    "static/css/main.5f265ec1.chunk.css.map": "/careandparkfront/static/css/main.5f265ec1.chunk.css.map",
+    "static/js/2.b651d21c.chunk.js.LICENSE.txt": "/careandparkfront/static/js/2.b651d21c.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bf0c81d9.js",
+    "static/js/2.b651d21c.chunk.js",
+    "static/css/main.5f265ec1.chunk.css",
+    "static/js/main.45280137.chunk.js"
+  ]
+}
