@@ -81,8 +81,8 @@ class Place extends React.Component {
 
 		return (
 			<button onClick={() => this.modifierDisponibilite(this.state.libre ? "OCCUPE" : "LIBRE")} className="place-container">
-				<p className="place-numero"> N° {this.numero || "?"}</p>
-				<p className="place-type">{this.type || "?"}</p>
+				<p className="place-numero"> N° {this.numero.toString() || "?"}</p>
+				<p className="place-type">{this.type.toString() || "?"}</p>
 				<div className={ "pastille " + disponibilite} />
 			</button>
 		);

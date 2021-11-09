@@ -16,7 +16,7 @@ class Parkings extends React.Component {
 
 		this.chargerParkings = this.chargerParkings.bind(this)
 	}
-
+	
 	chargerParkings() {
 		
 		fetch(api.url+"/parkings")
