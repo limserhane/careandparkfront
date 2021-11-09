@@ -13,7 +13,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 ReactDOM.render(
 <React.StrictMode>
-	<BrowserRouter>
+	<BrowserRouter basename="/careandparkfront">
 		<Routes>
 			<Route path="/" element={<App />} >
 				{/* NO INDEX = blank home */}
